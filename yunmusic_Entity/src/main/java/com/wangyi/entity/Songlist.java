@@ -1,12 +1,11 @@
 package com.wangyi.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
-import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -46,6 +45,17 @@ public class Songlist extends Model<Songlist> {
      * 创建时间
      */
     private Date createtime;
+
+    /**
+     * 播放量
+     */
+    private Integer playnum;
+
+    /**
+     * 收藏量
+     */
+    private Integer starnum;
+
 
     /**
      * 歌曲数量
