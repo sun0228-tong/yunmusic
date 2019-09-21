@@ -55,5 +55,5 @@ public class Comment extends Model<Comment> {
     /**
      * 评论内容
      */
-    private String content;
+    private String details;
 }
