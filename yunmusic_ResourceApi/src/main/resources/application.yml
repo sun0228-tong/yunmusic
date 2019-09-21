@@ -1,0 +1,13 @@
+server:
+  port: 8889
+spring:
+  application:
+    name: ResourceApi
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  main:
+    allow-bean-definition-overriding: true

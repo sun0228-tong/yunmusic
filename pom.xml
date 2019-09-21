@@ -7,6 +7,8 @@
         <module>yunmusic_Entity</module>
         <module>yunmusic_Common</module>
         <module>yunmusic_Auto</module>
+        <module>yunmusic_ResourceProvider</module>
+        <module>yunmusic_ResourceApi</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
