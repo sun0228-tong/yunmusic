@@ -52,5 +52,8 @@ public class Comment extends Model<Comment> {
      */
     private Date createtime;
 
-
+    /**
+     * 评论内容
+     */
+    private String details;
 }
