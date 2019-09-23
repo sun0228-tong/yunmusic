@@ -1,0 +1,7 @@
+server:
+  port: 8921
+spring:
+  application:
+    name: SonglistProvider
+  profiles:
+    active: dev  #dev开发环境  test测试环境 prod生产环境(线上环境)

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangyi.songlistprovider.dao.SonglistDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wangyi.entity.Songlist">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="uid" property="uid" />
+        <result column="content" property="content" />
+        <result column="createtime" property="createtime" />
+        <result column="playnum" property="playnum" />
+        <result column="starnum" property="starnum" />
+        <result column="songnum" property="songnum" />
+        <result column="tag" property="tag" />
+        <result column="type" property="type" />
+        <result column="imgurl" property="imgurl" />
+    </resultMap>
+
+    <resultMap id="songlistMap" type="com.wangyi.songlistprovider.vo.VSonglistInfo">
+        <id column="songlistid" property="id" />
+        <result column="name" property="name" />
+        <result column="creator" property="creator" />
+        <result column="content" property="content" />
+        <result column="createtime" property="createtime" />
+        <result column="playnum" property="playnum" />
+        <result column="starnum" property="starnum" />
+        <result column="songnum" property="songnum" />
+        <result column="tag" property="tag" />
+        <result column="type" property="type" />
+        <result column="imgurl" property="imgurl" />
+        <collection property="songsList" ofType="com.wangyi.songlistprovider.vo.VSongInfo" javaType="list">
+            <id column="songid" property="id" />
+            <result column="songname" property="name" />
+            <result column="singer" property="singer" />
+            <result column="album" property="album" />
+            <result column="videoid" property="videoid" />
+            <result column="time" property="time" />
+            <result column="songplaynum" property="time" />
+            <result column="songurl" property="songurl" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="songMap" type="com.wangyi.songlistprovider.vo.VSongInfo">
+        <id column="songid" property="id" />
+        <result column="songname" property="name" />
+        <result column="singer" property="singer" />
+        <result column="album" property="album" />
+        <result column="videoid" property="videoid" />
+        <result column="time" property="time" />
+        <result column="songurl" property="songurl" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, uid, content, createtime, songnum, playnum, starnum, tag, type, imgurl
+    </sql>
+
+    <select id="selectAllTags" resultType="com.wangyi.songlistprovider.common.Tag">
+        select distinct tag
+        from songlist
+    </select>
+
+    <select id="selectAll" parameterType="map" resultType="songlist">
+        select * from songlist
+        <if test="tag != null and tag != ''">
+        where tag like concat('%', #{tag}, '%')
+        </if>
+        ORDER BY playnum desc
+    </select>
+
+    <select id="selectOneSonglistWithSongs" parameterType="int" resultMap="songlistMap">
+        select sl.id songlistid, sl.name, u.nickname creator, sl.content, sl.createtime, sl.playnum, sl.starnum, sl.songnum, sl.tag, sl.type, sl.imgurl, so.id songid, so.name songname, si.name singer, sl2.name album, so.videoid, so.time, so.playnum, so.songurl
+        from songlist sl
+        INNER JOIN songlistsong sls
+        on sl.id = sls.songlistid
+        INNER JOIN song so
+        on sls.songid = so.id
+        INNER JOIN songlistsong sls2
+        on so.id = sls2.songid
+        INNER JOIN songlist sl2
+        on sls2.songlistid = sl2.id and sl2.type = '专辑'
+        INNER JOIN singer si
+        on so.singerid = si.id
+        INNER JOIN user u
+        on u.id = sl.uid
+        where sl.id = #{songlistid}
+    </select>
+
+    <select id="selectOneAlbumWithSongs" parameterType="int" resultMap="songlistMap">
+        select sl.id songlistid, sl.name, si.name creator, sl.content, sl.createtime, sl.playnum, sl.starnum, sl.songnum, sl.tag, sl.type, sl.imgurl, so.id songid, so.name songname, si.name singer, sl2.name album, so.videoid, so.time, so.playnum songplaynum, so.songurl
+        from songlist sl
+        INNER JOIN songlistsong sls
+        on sl.id = sls.songlistid
+        INNER JOIN song so
+        on sls.songid = so.id
+        INNER JOIN songlistsong sls2
+        on so.id = sls2.songid
+        INNER JOIN songlist sl2
+        on sls2.songlistid = sl2.id and sl2.type = '专辑'
+        INNER JOIN singer si
+        on so.singerid = si.id
+        INNER JOIN singer si2
+        on si2.id = sl.uid
+        where sl.id = #{songlistid}
+    </select>
+
+    <select id="selectSongsByKeyword" parameterType="map" resultMap="songMap">
+        select so.id, so.name songname, so.id, si.name singer, sl2.name album, so.time, so.songurl
+        from songlist sl
+        INNER JOIN songlistsong sls
+        on sl.id = sls.songlistid
+        INNER JOIN song so
+        on sls.songid = so.id
+        INNER JOIN singer si
+        on so.singerid = si.id
+        INNER JOIN songlistsong sls2
+        on so.id = sls2.songid
+        INNER JOIN songlist sl2
+        on sls2.songlistid = sl2.id and sl2.type = '专辑'
+        where sl.id = #{songlistid}
+        <if test="keyword != '' and keyword != null">
+        and (so.name like concat('%', #{keyword} ,'%') or si.name like concat('%', #{keyword} ,'%') or sl2.name like concat('%', #{keyword} ,'%'))
+        </if>
+    </select>
+
+
+    <resultMap id="playingSongMap" type="com.wangyi.songlistprovider.vo.VSongInfo2">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="singer" property="singer" />
+        <result column="album" property="album" />
+        <result column="videoid" property="videoid" />
+        <result column="sourceid" property="sourceid" />
+        <result column="sourcename" property="sourcename" />
+        <result column="albumimgurl" property="albumimgurl" />
+    </resultMap>
+
+    <select id="selectPlayingSong" parameterType="int" resultMap="playingSongMap">
+        SELECT so.id, so.name, si.name singer, sl.name album, so.videoid videoid, sl.imgurl albumimgurl
+        FROM song so
+        INNER JOIN songlistsong sls
+        ON so.id = sls.songid
+        INNER JOIN songlist sl
+        on sls.songlistid = sl.id and sl.type = '专辑'
+        INNER JOIN singer si
+        on si.id = so.singerid
+        where so.id = #{songid}
+    </select>
+
+    <select id="selectSonglistNameById" parameterType="int" resultType="string">
+        SELECT name
+        FROM songlist
+        where id = #{id}
+    </select>
+
+    <select id="selectLyric" parameterType="int" resultType="com.wangyi.entity.Lyric">
+        select *
+        from lyric
+        where songid = #{songid}
+    </select>
+
+
+</mapper>

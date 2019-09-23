@@ -7,6 +7,7 @@
         <module>yunmusic_Entity</module>
         <module>yunmusic_Common</module>
         <module>yunmusic_Auto</module>
+        <module>yunmusic_SonglistServer</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -52,7 +53,7 @@
 <!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>-->
+<!--            <artifactId>spring-cloud-starter-netflix-eureka-songlistprovider</artifactId>-->
 <!--        </dependency>-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.cloud</groupId>-->
