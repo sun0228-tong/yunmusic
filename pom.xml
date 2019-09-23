@@ -14,6 +14,8 @@
         <module>yunmusic_VideoApi</module>
         <module>yunmusic_ResourceProvider</module>
         <module>yunmusic_ResourceApi</module>
+        <module>yunmusic_UserCollectionProvider</module>
+        <module>yunmusic_UserCollectionApi</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
