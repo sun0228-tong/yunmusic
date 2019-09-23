@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yunmusic.server.dao.CommentDao">
+    <resultMap id="comment" type="com.wangyi.entity.Comment">
+        <id property="id" column="id"></id>
+        <result property="objectid" column="objectid"></result>
+        <result property="userid" column="userid"></result>
+        <result property="likenum" column="likenum"></result>
+        <result property="createtime" column="createCT"></result>
+        <result property="details" column="details"></result>
+    </resultMap>
+
+    <select id="findRecommentById" parameterType="int" resultType="com.wangyi.entity.Recomment">
+        SELECT r.* FROM recomment r
+        inner join comment c
+        on c.id = r.commentid
+        where c.id = #{id};
+    </select>
+    <insert id="addComment" parameterType="com.wangyi.entity.Comment" >
+        insert into comment (objectid,type,userid,likenum,createtime,details) values (#{objectid},2,#{userid},0,#{createtime},#{details});
+    </insert>
+
+    <insert id="addRecomment" parameterType="com.wangyi.entity.Recomment">
+        insert into recomment(commentid,userid,content,likenum) values (#{commentid},#{userid},#{content},0)
+    </insert>
+</mapper>
