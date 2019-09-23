@@ -7,6 +7,9 @@
         <module>yunmusic_Entity</module>
         <module>yunmusic_Common</module>
         <module>yunmusic_Auto</module>
+
+        <module>yunmusic_VideoServer</module>
+        <module>yunmusic_VideoApi</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
