@@ -8,6 +8,7 @@
         <module>yunmusic_Common</module>
         <module>yunmusic_Auto</module>
         <module>yunmusic_RankProvider</module>
+        <module>yunmusic_RankApi</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

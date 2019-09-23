@@ -2,21 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wangyi.rankprovider.dao.RankHotDao">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wangyi.entity.Songlist">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="uid" property="uid" />
-        <result column="content" property="content" />
-        <result column="createtime" property="createtime" />
-        <result column="songnum" property="songnum" />
-        <result column="tag" property="tag" />
-        <result column="type" property="type" />
-        <result column="imgurl" property="imgurl" />
+    <resultMap id="rankMap" type="com.wangyi.rankprovider.vo.VRankInfo">
+
+        <result property="songListName" column="hotrank"></result>
+        <result property="createTime" column="createTime"></result>
+        <result property="songlistid" column="songlistid"></result>
+        <collection property="rankSonglist" ofType="com.wangyi.rankprovider.vo.VRankSongInfo" javaType="list">
+            <result property="songName" column="name"></result>
+            <result property="singerName" column="signer"></result>
+            <result property="songid" column="songid"></result>
+            <result property="songurl" column="songurl"></result>
+        </collection>
     </resultMap>
-
-    <select id="selectHotList" resultType="com.wangyi.entity.Songlist">
-
+    <resultMap id="hotSongMap" type="com.wangyi.rankprovider.vo.VRankSongInfo">
+        <result property="songName" column="name"></result>
+        <result property="singerName" column="signer"></result>
+        <result property="songid" column="songid"></result>
+        <result property="songurl" column="songurl"></result>
+    </resultMap>
+    <select id="selectHotList" resultMap="rankMap">
+        SELECT  so.name,se.name signer,sl.name hotrank,sl.createtime,sls.songlistid,so.id songid,so.songurl
+        FROM song so INNER JOIN singer se on so.singerid =se.id
+        INNER JOIN songlistsong sls on sls.songid =so.id
+        INNER JOIN songlist sl on sl.id =sls.songlistid
+        WHERE sls.songlistid=24
+        ORDER BY so.playnum desc limit 8
+    </select>
+    <select id="selectByPlayNum" resultMap="hotSongMap">
+        SELECT  so.name,se.name signer,so.id songid,so.songurl
+        FROM song so INNER JOIN singer se on so.singerid =se.id
+        ORDER BY so.playnum desc
     </select>
 
+    <delete id="deleteById" parameterType="int">
+    delete from songlistsong where songlistid = #{songlistid};
+    </delete>
+
+    <insert id="insertSongBatch" parameterType="map">
+        INSERT INTO songlistsong(songlistid,songid)
+        VALUES
+        <foreach collection="songids" item="song" separator=",">
+            (#{songlistid}, #{song})
+        </foreach>
+    </insert>
+    <update id="updateByTime" parameterType="int">
+        UPDATE songlist SET createtime =now() WHERE id =#{songlistid}
+    </update>
 </mapper>
