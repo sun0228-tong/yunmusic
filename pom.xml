@@ -8,6 +8,10 @@
         <module>yunmusic_Common</module>
         <module>yunmusic_Auto</module>
         <module>yunmusic_SonglistServer</module>
+        <module>yunmusic_RankProvider</module>
+        <module>yunmusic_RankApi</module>
+        <module>yunmusic_VideoServer</module>
+        <module>yunmusic_VideoApi</module>
         <module>yunmusic_ResourceProvider</module>
         <module>yunmusic_ResourceApi</module>
     </modules>

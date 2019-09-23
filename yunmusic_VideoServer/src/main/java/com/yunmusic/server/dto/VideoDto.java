@@ -1,25 +1,15 @@
-package com.wangyi.entity;
+package com.yunmusic.server.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.wangyi.entity.Comment;
 import lombok.Data;
 
-import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author suntong
- * @since 2019-09-20
- */
 @Data
-public class Video extends Model<Video> {
-
+public class VideoDto {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -68,6 +58,17 @@ public class Video extends Model<Video> {
      */
     private String videourl;
 
+    /**
+     * 评论内容
+     */
+    private String details;
+
+    private Integer userid;
+
+    private Date commonCT;
+    private Integer likenum;
+
     private List<Comment> comments;
+
 
 }

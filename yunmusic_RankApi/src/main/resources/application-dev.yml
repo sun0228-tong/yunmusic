@@ -1,0 +1,8 @@
+spring:
+  profiles: dev
+eureka:
+  instance:
+    prefer-ip-address: true #以IP地址注册到服务中心
+  client:
+    serviceUrl:
+      defaultZone: http://39.105.189.141/EurekaServer/eureka/
