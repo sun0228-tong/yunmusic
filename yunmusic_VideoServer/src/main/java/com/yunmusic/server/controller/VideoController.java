@@ -49,4 +49,13 @@ public class VideoController {
     public R selectOneVideo(@RequestParam("id")int id){
         return RUtil.setOK("单个MV详情",videoService.selectOneVideo(id));
     }
+
+    @PostMapping("/server/video/selectNewVideo.do")
+    public R selectNewVideo(){
+        return RUtil.setOK("单个MV详情",videoService.selectNewVideo());
+    }
+    @PostMapping("/server/video/selectNewVideoByTag.do")
+    public R selectNewVideoByTag(@RequestParam("tag") String tag){
+        return RUtil.setOK("按照tag查找最新MV",videoService.selectNewVideoByTag(tag));
+    }
 }
