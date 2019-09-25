@@ -16,6 +16,8 @@
         <module>yunmusic_ResourceApi</module>
         <module>yunmusic_UserCollectionProvider</module>
         <module>yunmusic_UserCollectionApi</module>
+        <module>yunmusic_SecKill</module>
+        <module>yunmusic_SearchApi</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
