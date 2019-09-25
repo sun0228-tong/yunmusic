@@ -36,7 +36,7 @@
             <result column="album" property="album" />
             <result column="videoid" property="videoid" />
             <result column="time" property="time" />
-            <result column="songplaynum" property="time" />
+            <result column="songplaynum" property="playnum" />
             <result column="songurl" property="songurl" />
         </collection>
     </resultMap>
@@ -49,6 +49,7 @@
         <result column="videoid" property="videoid" />
         <result column="time" property="time" />
         <result column="songurl" property="songurl" />
+        <result column="playnum" property="playnum" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -57,7 +58,7 @@
     </sql>
 
     <select id="selectAllTags" resultType="com.wangyi.songlistprovider.common.Tag">
-        select distinct tag
+        select distinct tag name
         from songlist
     </select>
 
@@ -106,7 +107,7 @@
     </select>
 
     <select id="selectSongsByKeyword" parameterType="map" resultMap="songMap">
-        select so.id, so.name songname, so.id, si.name singer, sl2.name album, so.time, so.songurl
+        select so.id, so.name songname, so.id, si.name singer, sl2.name album, so.time, so.songurl, so.playnum
         from songlist sl
         INNER JOIN songlistsong sls
         on sl.id = sls.songlistid
@@ -123,7 +124,6 @@
         and (so.name like concat('%', #{keyword} ,'%') or si.name like concat('%', #{keyword} ,'%') or sl2.name like concat('%', #{keyword} ,'%'))
         </if>
     </select>
-
 
     <resultMap id="playingSongMap" type="com.wangyi.songlistprovider.vo.VSongInfo2">
         <id column="id" property="id" />
@@ -160,5 +160,41 @@
         where songid = #{songid}
     </select>
 
+    <select id="selectAllSinger" parameterType="map" resultType="com.wangyi.entity.Singer">
+        SELECT si.*
+        FROM singer si
+        INNER JOIN popularity po
+        on si.id = po.singerid
+        <where>
+            <if test="firstPinyin != null and firstPinyin != ''">
+                GET_FIRST_PINYIN_CHAR(si.name) = #{firstPinyin}
+            </if>
+            <if test="type != null and type != ''">
+                and si.type = #{type}
+            </if>
+            <if test="language != null and language != ''">
+                and si.language = #{language}
+            </if>
+        </where>
+        order by po.hot desc
+    </select>
 
+    <select id="selectTop50BySingerId" parameterType="int" resultType="com.wangyi.entity.Song">
+        select *
+        FROM song
+        where singerid = #{singerid}
+        order by playnum desc LIMIT 50
+    </select>
+
+    <select id="selectAllAlbumWithSongBySingerId" parameterType="int" resultMap="songlistMap">
+        SELECT sl.id songlistid, sl.name, si.name creator, sl.content, sl.createtime, sl.playnum, sl.starnum, sl.songnum, sl.tag, sl.type, sl.imgurl, so.id songid, so.name songname, si.name singer, sl.name album, so.videoid, so.time, so.playnum songplaynum, so.songurl
+        FROM songlist sl
+        INNER JOIN songlistsong sls
+        on sl.id = sls.songlistid and sl.type = '专辑'
+        INNER JOIN song so
+        on sls.songid = so.id
+        INNER JOIN singer si
+        on si.id = sl.uid
+        where si.id = #{singerid}
+    </select>
 </mapper>

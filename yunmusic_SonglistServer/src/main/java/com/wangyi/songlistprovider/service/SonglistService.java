@@ -3,6 +3,8 @@ package com.wangyi.songlistprovider.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wangyi.entity.Lyric;
+import com.wangyi.entity.Singer;
+import com.wangyi.entity.Song;
 import com.wangyi.entity.Songlist;
 import com.wangyi.songlistprovider.common.Tag;
 import com.wangyi.songlistprovider.vo.VSongInfo;
@@ -29,6 +31,18 @@ public interface SonglistService extends IService<Songlist> {
 
     Lyric queryLyric(Integer songid);
 
+    List<Singer> queryAllSinger(Page<Songlist> page, String language, String type, String firstPinyin);
 
+    List<Song> queryTop50BySingerId(int singerid);
+
+    List<VSonglistInfo> queryAllAlbumWithSong(int singerid);
+
+    String querySingerName(int singerid);
+
+    int querySingerAlbumCount(int singerid);
+
+    int querySingerVideoCount(int singerid);
+
+    String querySingerDetail(int singerid);
 
 }
