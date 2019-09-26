@@ -25,6 +25,6 @@ public class SwaggerConfig {
     @Bean
     public Docket createD(){
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(createAI()).select().apis
-                (RequestHandlerSelectors.basePackage("com.wangyi.rankapi.RankApiController")).build();
+                (RequestHandlerSelectors.basePackage("com.wangyi.rankapi.api")).build();
     }
 }

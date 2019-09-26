@@ -5,7 +5,11 @@ import com.wangyi.rankprovider.service.RankHotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @program: yunmusic
@@ -48,8 +52,27 @@ public class RankHotController {
         rankHotService.deleteById(songlistid);
     }
 
+    /**
+     * 根据歌单id查询歌单歌曲
+     * @param songlistid
+     * @return
+     */
     @GetMapping("/rankprovider/rank/queryhotsongs.do")
     public R hotsongs(int songlistid){
         return rankHotService.selectHotSongs(songlistid);
+    }
+
+    /**
+     * 根据歌单id批量插入歌曲
+     * @param songlistid
+     * @param songids
+     */
+    @PostMapping("/rankprovider/rank/addsongs.do")
+    public void addBatch(int songlistid, int[] songids) {
+        List<Integer> list = new ArrayList<>();
+        for (int i : songids) {
+            list.add(i);
+        }
+        rankHotService.insertSongBatch(songlistid, list);
     }
 }

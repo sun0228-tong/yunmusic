@@ -1,7 +1,19 @@
+#server:
+#  port: 8910
+#spring:
+#  application:
+#    name: RankApi
+#  profiles:
+#    active: dev  #dev开发环境  test测试环境 prod生产环境(线上环境)
+#  main:
+#    allow-bean-definition-overriding: true
+#
 server:
-  port: 8910
+  port: 8920
 spring:
   application:
     name: RankApi
   profiles:
     active: dev  #dev开发环境  test测试环境 prod生产环境(线上环境)
+  main:
+    allow-bean-definition-overriding: true

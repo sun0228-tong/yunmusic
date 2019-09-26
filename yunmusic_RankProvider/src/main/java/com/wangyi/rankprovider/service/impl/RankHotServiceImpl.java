@@ -29,7 +29,6 @@ import java.util.Map;
  * @create: 2019-09-20 19:44
  **/
 @Service
-
 public class RankHotServiceImpl extends ServiceImpl<RankHotDao, VRankInfo> implements RankHotService {
 
     @Autowired(required = false)

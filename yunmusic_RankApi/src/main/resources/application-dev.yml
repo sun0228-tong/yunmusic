@@ -2,7 +2,7 @@ spring:
   profiles: dev
 eureka:
   instance:
-prefer-ip-address: true #以IP地址注册到服务中心
+    prefer-ip-address: true #以IP地址注册到服务中心
   client:
     serviceUrl:
       defaultZone: http://106.13.167.168:8080/EurekaServer/eureka
