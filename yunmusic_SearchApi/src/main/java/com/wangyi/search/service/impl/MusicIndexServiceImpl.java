@@ -33,7 +33,7 @@ public class MusicIndexServiceImpl implements MusicIndexService {
     @Override
     public R<List<MusicIndex>> findLike(int page, int size, String msg) {
         //创建查询条件对象 id 进行模糊查询
-        WildcardQueryBuilder wildcardQueryBuilder = QueryBuilders.wildcardQuery("singer","%"+msg+"%");
+        WildcardQueryBuilder wildcardQueryBuilder = QueryBuilders.wildcardQuery("singer","*"+msg+"*");
         //WildcardQueryBuilder wildcardQueryBuilder1 = QueryBuilders.wildcardQuery("name","%"+msg+"%");
         //WildcardQueryBuilder wildcardQueryBuilder2 = QueryBuilders.wildcardQuery("name","%"+msg+"%");
 

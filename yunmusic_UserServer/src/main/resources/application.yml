@@ -1,0 +1,7 @@
+server:
+  port: 7779
+spring:
+  application:
+    name: UserProvider
+  profiles:
+    active: dev  #dev开发环境  test测试环境 prod生产环境(线上环境)

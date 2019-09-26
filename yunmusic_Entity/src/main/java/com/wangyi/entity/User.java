@@ -33,6 +33,11 @@ public class User extends Model<User> {
     private String telephone;
 
     /**
+     * 邮箱（也可以为账号）
+     */
+    private String email;
+
+    /**
      * 密码
      */
     private String password;
