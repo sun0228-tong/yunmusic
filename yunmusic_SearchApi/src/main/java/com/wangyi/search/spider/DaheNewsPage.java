@@ -1,7 +1,7 @@
 package com.wangyi.search.spider;
 
-import com.wangyi.search.model.NewsIndex;
 import com.wangyi.common.util.IdGenerator;
+import com.wangyi.search.model.NewsIndex;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;

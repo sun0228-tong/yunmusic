@@ -16,6 +16,8 @@
         <module>yunmusic_ResourceApi</module>
         <module>yunmusic_UserCollectionProvider</module>
         <module>yunmusic_UserCollectionApi</module>
+        <module>yunmusic_SonglistApi</module>
+        <module>yunmusic_RankApi</module>
         <module>yunmusic_SecKill</module>
         <module>yunmusic_SearchApi</module>
         <module>yunmusic_MsgApi</module>

@@ -1,9 +1,9 @@
 package com.wangyi.search.service.impl;
 
-import com.wangyi.search.dao.NewsIndexDao;
-import com.wangyi.search.service.NewsIndexService;
 import com.wangyi.common.util.RUtil;
 import com.wangyi.common.vo.R;
+import com.wangyi.search.dao.NewsIndexDao;
+import com.wangyi.search.service.NewsIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

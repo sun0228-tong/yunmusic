@@ -6,6 +6,7 @@ import com.wangyi.common.vo.R;
 import com.wangyi.rankprovider.vo.VRankInfo;
 import com.wangyi.rankprovider.vo.VRankSongInfo;
 
+import com.wangyi.rankprovider.vo.VSongLisTInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -25,5 +26,7 @@ public interface RankHotService extends IService<VRankInfo> {
 
     int deleteById(int songlistid);
 
-    int insertSongBatch(@Param("songlistid") int songlistid, @Param("songids")List<Integer> songids);
+    int insertSongBatch(int songlistid, List<Integer> songids);
+
+    R<List<VSongLisTInfo>> selectHotSongs(int songlistid);
 }

@@ -21,8 +21,8 @@ public class JedisUtil {
     private JedisUtil() {
         if (pool == null) {
             String ip = "47.94.153.70";
-            int port = 6699;
-            String password =null;
+            int port = 6379;
+            String password ="ccq";
             JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
             jedisPoolConfig.setMaxTotal(1000);
             jedisPoolConfig.setMaxIdle(4000);

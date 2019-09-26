@@ -1,7 +1,7 @@
 package com.wangyi.search.api;
 
-import com.wangyi.search.service.NewsIndexService;
 import com.wangyi.common.vo.R;
+import com.wangyi.search.service.NewsIndexService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

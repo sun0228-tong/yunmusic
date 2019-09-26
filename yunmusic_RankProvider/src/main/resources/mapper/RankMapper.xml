@@ -3,7 +3,6 @@
 <mapper namespace="com.wangyi.rankprovider.dao.RankHotDao">
 
     <resultMap id="rankMap" type="com.wangyi.rankprovider.vo.VRankInfo">
-
         <result property="songListName" column="hotrank"></result>
         <result property="createTime" column="createTime"></result>
         <result property="songlistid" column="songlistid"></result>
@@ -20,6 +19,30 @@
         <result property="songid" column="songid"></result>
         <result property="songurl" column="songurl"></result>
     </resultMap>
+    <resultMap id="hotMap" type="com.wangyi.rankprovider.vo.VSongLisTInfo">
+        <id column="songlistid" property="songlistid"></id>
+        <result property="songListName" column="songListName"></result>
+        <result property="createTime" column="createTime"></result>
+        <result property="type" column="type"></result>
+        <result property="songnum" column="songnum"></result>
+        <result property="playnum" column="playnum"></result>
+        <result property="starnum" column="starnum"></result>
+        <result property="userName" column="userName"></result>
+        <result property="content" column="content"></result>
+        <result property="imgurl" column="imgurl"></result>
+        <result property="userimgurl" column="userimgurl"></result>
+
+        <collection property="songsList" ofType="com.wangyi.rankprovider.vo.VSongInfo" javaType="list">
+            <id column="songid" property="songid"></id>
+            <result property="singerName" column="singer"></result>
+            <result property="songName" column="songName"></result>
+            <result property="songurl" column="songurl"></result>
+            <result property="album" column="album"></result>
+            <result property="videoid" column="videoid"></result>
+            <result property="time" column="time"></result>
+            <result property="songplaynum" column="songplaynum"></result>
+        </collection>
+    </resultMap>
     <select id="selectHotList" resultMap="rankMap">
         SELECT  so.name,se.name signer,sl.name hotrank,sl.createtime,sls.songlistid,so.id songid,so.songurl
         FROM song so INNER JOIN singer se on so.singerid =se.id
@@ -32,6 +55,26 @@
         SELECT  so.name,se.name signer,so.id songid,so.songurl
         FROM song so INNER JOIN singer se on so.singerid =se.id
         ORDER BY so.playnum desc
+    </select>
+
+    <select id="selectHotSongs" parameterType="int" resultMap="hotMap">
+select sl.id songlistid, sl.name songListName, u.nickname userName, sl.content, sl.createtime, sl.playnum,
+ sl.starnum, sl.songnum, sl.type, sl.imgurl, so.id songid, so.name songname, si.name singer, sl2.name album, so.videoid, so.time, so.playnum songplaynum, so.songurl,u.imgurl userimgurl
+        from songlist sl
+        INNER JOIN songlistsong sls
+        on sl.id = sls.songlistid
+        INNER JOIN song so
+        on sls.songid = so.id
+        INNER JOIN songlistsong sls2
+        on so.id = sls2.songid
+        INNER JOIN songlist sl2
+        on sls2.songlistid = sl2.id and sl2.type = '专辑'
+        INNER JOIN singer si
+        on so.singerid = si.id
+        INNER JOIN user u
+        on u.id = sl.uid
+        where sl.id = #{songlistid} ORDER BY sl.playnum limit 200
+
     </select>
 
     <delete id="deleteById" parameterType="int">

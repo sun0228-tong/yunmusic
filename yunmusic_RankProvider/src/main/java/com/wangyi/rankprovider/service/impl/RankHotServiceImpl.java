@@ -12,6 +12,7 @@ import com.wangyi.rankprovider.service.RankHotService;
 import com.wangyi.rankprovider.vo.VRankInfo;
 import com.wangyi.rankprovider.vo.VRankSongInfo;
 
+import com.wangyi.rankprovider.vo.VSongLisTInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,6 @@ import java.util.Map;
  * @create: 2019-09-20 19:44
  **/
 @Service
-
 public class RankHotServiceImpl extends ServiceImpl<RankHotDao, VRankInfo> implements RankHotService {
 
     @Autowired(required = false)
@@ -70,6 +70,12 @@ public class RankHotServiceImpl extends ServiceImpl<RankHotDao, VRankInfo> imple
     @Override
     public int insertSongBatch(int songlistid, List<Integer> songids) {
         return rankHotDao.insertSongBatch(songlistid,songids);
+    }
+
+    @Override
+    public R<List<VSongLisTInfo>> selectHotSongs(int songlistid) {
+        List<VSongLisTInfo> hotSongs= rankHotDao.selectHotSongs(songlistid);
+        return RUtil.setOK("ok",hotSongs);
     }
 
 }

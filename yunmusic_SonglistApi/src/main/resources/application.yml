@@ -1,0 +1,9 @@
+server:
+  port: 8931
+spring:
+  application:
+    name: SonglistApi
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true

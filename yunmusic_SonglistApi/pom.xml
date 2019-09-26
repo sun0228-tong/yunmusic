@@ -8,7 +8,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>yunmusic_RankApi</artifactId>
+
+    <artifactId>yunmusic_SonglistApi</artifactId>
 
     <dependencies>
         <dependency>
@@ -33,7 +34,12 @@
         </dependency>
         <dependency>
             <groupId>com.wangyi</groupId>
-            <artifactId>yunmusic_Common</artifactId>
+            <artifactId>yunmusic_Entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wangyi</groupId>
+            <artifactId>yunmusic_SonglistServer</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
