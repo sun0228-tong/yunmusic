@@ -104,7 +104,7 @@ public class SonglistController {
      * @param songlistid 来源歌单ID
      * @return
      */
-    @GetMapping("/songlist/queryPlaySongById.do")
+    @GetMapping("/server/songlist/queryPlaySongById.do")
     public R querySonglistNameById(Integer songid, Integer songlistid) {
         VSongInfo2 song = songlistService.queryPlaySongById(songid);
         if (songlistid != null) {
@@ -121,7 +121,7 @@ public class SonglistController {
      * @param songid 歌曲ID
      * @return
      */
-    @GetMapping("/songlist/queryLyric.do")
+    @GetMapping("/server/songlist/queryLyric.do")
     public R queryLyric(Integer songid) {
         Lyric lyric = songlistService.queryLyric(songid);
         if (lyric != null) {
@@ -135,10 +135,10 @@ public class SonglistController {
     /**
      * xc
      * 查询所有歌手（按语种/歌手分类/歌手名首字母），按热度从高到低
-     * @param map(page 页码, language 语种, type 歌手分类, firstPinyin 当前页展示数量)
+     * @param map(page 页码, size 当前页展示数量, language 语种, type 歌手分类, firstPinyin 歌手名首字母)
      * @return
      */
-    @PostMapping("/songlist/queryAllSinger.do")
+    @PostMapping("/server/songlist/queryAllSinger.do")
     public R queryAllSinger(@RequestBody Map<String, Object> map) {
         // 分页
         Page<Songlist> page = new Page<>((int) map.get("page"), (int) map.get("size"));
@@ -205,12 +205,11 @@ public class SonglistController {
      * @param singerid 歌手ID
      * @return
      */
-    @GetMapping("/songlist/queryTop50BySingerId.do")
+    @GetMapping("/server/songlist/queryTop50BySingerId.do")
     public R queryTop50BySingerId(Integer singerid) {
         List<Song> list = songlistService.queryTop50BySingerId(singerid);
         return RUtil.setOK("查询成功！", list);
     }
-
 
     /**
      * xc
@@ -218,7 +217,7 @@ public class SonglistController {
      * @param singerid 歌手ID
      * @return
      */
-    @GetMapping("/songlist/queryAllAlbumWithSongBySingerId.do")
+    @GetMapping("/server/songlist/queryAllAlbumWithSongBySingerId.do")
     public R queryAllAlbumWithSong(Integer singerid) {
         try {
             List<VSonglistInfo> list = songlistService.queryAllAlbumWithSong(singerid);

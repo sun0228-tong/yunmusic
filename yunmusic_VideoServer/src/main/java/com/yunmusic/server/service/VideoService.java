@@ -19,4 +19,8 @@ public interface VideoService {
     List<Video> selectMVByPlaynumAndTag(String tag);
 
     Video selectOneVideo(Integer id);
+
+    List<Video> selectNewVideo();
+
+    List<Video> selectNewVideoByTag(String tag);
 }

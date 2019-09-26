@@ -68,6 +68,7 @@ public class VideoDto {
     private Date commonCT;
     private Integer likenum;
 
+    private String nickname;
     private List<Comment> comments;
 
 

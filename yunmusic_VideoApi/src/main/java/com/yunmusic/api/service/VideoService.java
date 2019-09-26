@@ -42,4 +42,10 @@ public interface VideoService {
 
     @PostMapping("/server/comment/addRecomment.do")
     R addRecomment(@RequestBody Recomment recomment);
+
+    @PostMapping("/server/video/selectNewVideo.do")
+    R selectNewVideo();
+
+    @PostMapping("/server/video/selectNewVideoByTag.do")
+    R selectNewVideoByTag(@RequestParam(value = "tag") String tag);
 }

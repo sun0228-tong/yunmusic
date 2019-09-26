@@ -31,4 +31,24 @@ public interface SonglistService {
     @GetMapping("/server/songlist/querySongsByKeyword.do")
     public R querySongsByKeyword(@RequestParam("songlistid") int songlistid, @RequestParam("keyword") String keyword);
 
+    //------------------------- 歌曲播放页 -------------------------
+
+    @GetMapping("/server/songlist/queryPlaySongById.do")
+    public R querySonglistNameById(@RequestParam("songid") Integer songid, @RequestParam("songlistid") Integer songlistid);
+
+    @GetMapping("/server/songlist/queryLyric.do")
+    public R queryLyric(@RequestParam("songid") Integer songid);
+
+    //------------------------- 歌手分类页 -------------------------
+
+    @PostMapping("/server/songlist/queryAllSinger.do")
+    public R queryAllSinger(@RequestBody Map<String, Object> map);
+
+    //------------------------- 歌手页 -------------------------
+
+    @GetMapping("/server/songlist/queryTop50BySingerId.do")
+    public R queryTop50BySingerId(@RequestParam("singerid") Integer singerid);
+
+    @GetMapping("/server/songlist/queryAllAlbumWithSongBySingerId.do")
+    public R queryAllAlbumWithSong(@RequestParam("singerid") Integer singerid);
 }

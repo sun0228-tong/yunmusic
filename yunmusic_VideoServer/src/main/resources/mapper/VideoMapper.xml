@@ -1,46 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yunmusic.server.dao.VideoDao">
-    <select id="selectByTag" parameterType="string" resultType="com.wangyi.entity.Video">
-        select * from video
+    <select id="selectByTag" parameterType="string" resultType="com.yunmusic.server.dto.VideoDto">
+        select v.*,u.nickname from video v
+        INNER JOIN uservideo uv
+        on uv.videoid = v.id
+        INNER JOIN user u
+        on u.id = uv.userid
         <where>
             1=1
              <if test="tag != '' and tag !=null">
-                and tag like concat ('%',#{tag},'%')
+                and v.tag like concat ('%',#{tag},'%')
              </if>
         </where>
     </select>
-    <select id="selectAllTag" resultType="com.wangyi.entity.Video">
+    <select id="selectAllTag" resultType="com.yunmusic.server.dto.VideoDto">
         select tag from video group by tag;
     </select>
-    <select id="selectAllType" resultType="com.wangyi.entity.Video">
+    <select id="selectAllType" resultType="com.yunmusic.server.dto.VideoDto">
         select type from video group by type;
     </select>
-    <select id="selectByType" parameterType="string" resultType="com.wangyi.entity.Video">
-        select * from video
-        where type = #{type}
+    <select id="selectByType" parameterType="string" resultType="com.yunmusic.server.dto.VideoDto">
+        select v.*,u.nickname from video v
+        INNER JOIN uservideo uv
+        on uv.videoid = v.id
+        INNER JOIN user u
+        on u.id = uv.userid
+        where v.type = #{type}
     </select>
-    <select id="selectMVByTag" parameterType="string" resultType="com.wangyi.entity.Video">
-        select * from video
+    <select id="selectMVByTag" parameterType="string" resultType="com.yunmusic.server.dto.VideoDto">
+        select v.*,u.nickname from video v
+        INNER JOIN uservideo uv
+        on uv.videoid = v.id
+        INNER JOIN user u
+        on u.id = uv.userid
         <where>
             type = 'MV'
             <if test="tag != '' and tag !=null">
-                and tag like concat ('%',#{tag},'%')
+                and v.tag like concat ('%',#{tag},'%')
             </if>
         </where>
     </select>
-    <select id="selectByPlaynum" resultType="com.wangyi.entity.Video">
-        SELECT * FROM  video
-        where type ='MV'
-        ORDER BY playnum DESC;
+    <select id="selectByPlaynum" resultType="com.yunmusic.server.dto.VideoDto">
+        SELECT v.*,u.nickname FROM  video v
+        INNER JOIN uservideo uv
+        on uv.videoid = v.id
+        INNER JOIN user u
+        on u.id = uv.userid
+        where v.type ='MV'
+        ORDER BY v.playnum DESC;
     </select>
-    <select id="selectMVByPlaynumAndTag" parameterType="string" resultType="com.wangyi.entity.Video">
-        SELECT * FROM  video
+    <select id="selectMVByPlaynumAndTag" parameterType="string" resultType="com.yunmusic.server.dto.VideoDto">
+        SELECT v.*,u.nickname FROM  video v
+        INNER JOIN uservideo uv
+        on uv.videoid = v.id
+        INNER JOIN user u
+        on u.id = uv.userid
         where type ='MV'
         <if test="tag != '' and tag !=null">
-            and tag like concat ('%',#{tag},'%')
+            and v.tag like concat ('%',#{tag},'%')
         </if>
-        ORDER BY playnum DESC;
+        ORDER BY v.playnum DESC;
     </select>
     <resultMap id="OneMap" type="com.wangyi.entity.Video">
         <id property="id" column="id"></id>
@@ -56,13 +76,33 @@
         resultMap="com.yunmusic.server.dao.CommentDao.comment"></collection>
 
     </resultMap>
-
-
     <select id="selectOneVideo" parameterType="int" resultMap="OneMap">
-        select v.*,c.createtime as createCT,c.details,c.likenum,c.userid
+        select v.*,c.createtime as createCT,c.details,c.likenum,c.userid,u.nickname
         from video v
+        INNER JOIN uservideo uv
+        on uv.videoid = v.id
+        INNER JOIN user u
+        on u.id = uv.userid
         INNER JOIN comment c
         on v.id = c.objectid
         where c.type = 2 and v.id = #{id};
+    </select>
+
+    <select id="selectNewVideo" resultType="com.yunmusic.server.dto.VideoDto">
+        select * from video v
+        INNER JOIN uservideo uv
+        on uv.videoid = v.id
+        INNER JOIN user u
+        on u.id = uv.userid
+        where DATE_SUB(CURDATE(), INTERVAL 6 DAY) &lt;=date(v.createtime) and v.type = 'MV';
+    </select>
+
+    <select id="selectNewVideoByTag" parameterType="string" resultType="com.yunmusic.server.dto.VideoDto">
+        select * from video v
+        INNER JOIN uservideo uv
+        on uv.videoid = v.id
+        INNER JOIN user u
+        on u.id = uv.userid
+        where DATE_SUB(CURDATE(), INTERVAL 6 DAY) &lt;=date(v.createtime) and v.tag like concat ('%',#{tag},'%') and v.type = 'MV';
     </select>
 </mapper>

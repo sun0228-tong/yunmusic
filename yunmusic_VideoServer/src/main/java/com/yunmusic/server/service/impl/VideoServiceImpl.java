@@ -61,4 +61,14 @@ public class VideoServiceImpl implements VideoService {
         return video;
 
     }
+
+    @Override
+    public List<Video> selectNewVideo() {
+        return videoDao.selectNewVideo();
+    }
+
+    @Override
+    public List<Video> selectNewVideoByTag(String tag) {
+        return videoDao.selectNewVideoByTag(tag);
+    }
 }

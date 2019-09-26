@@ -80,4 +80,18 @@ public class VideoController {
     public R addRecomment(@RequestBody Recomment recomment){
         return videoService.addRecomment(recomment);
     }
+
+
+
+    @ApiOperation(value = "展示最新MV",notes = "展示最新MV")
+    @PostMapping("/server/comment/selectNewVideo.do")
+    public R selectNewVideo(){
+        return videoService.selectNewVideo();
+    }
+    @ApiOperation(value = "根据分类查找最新MV",notes = "根据分类查找最新MV")
+    @PostMapping("/server/video/selectNewVideoByTag.do")
+    public R selectNewVideoByTag(@RequestParam(value = "tag" ,required = false) String tag){
+        return videoService.selectNewVideoByTag(tag);
+    }
+
 }
