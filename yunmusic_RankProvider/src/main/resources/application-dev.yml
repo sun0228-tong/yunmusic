@@ -15,3 +15,6 @@ eureka:
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
   type-aliases-package: com.wangyi.entity
+  global-config:
+    db-config:
+      capital-mode: true

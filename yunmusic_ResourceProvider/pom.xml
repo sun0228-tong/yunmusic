@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.wangyi</groupId>
             <artifactId>yunmusic_Common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+          <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -3,7 +3,7 @@ package com.wangyi.songlistprovider.vo;
 import lombok.Data;
 
 /**
- * 用于歌单页面内展示的 歌曲 信息
+ *
  */
 @Data
 public class VSongInfo {
