@@ -39,8 +39,17 @@ public class RankHotController {
         return rankHotService.selectByPlayNum();
     }
 
+    /**
+     * 根据歌单id删除歌单歌曲
+     * @param songlistid
+     */
     @DeleteMapping("/rankprovider/rank/deleteByID.do")
     public void deleteBySongListId(int songlistid) {
         rankHotService.deleteById(songlistid);
+    }
+
+    @GetMapping("/rankprovider/rank/queryhotsongs.do")
+    public R hotsongs(int songlistid){
+        return rankHotService.selectHotSongs(songlistid);
     }
 }

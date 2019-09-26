@@ -9,10 +9,11 @@ import java.util.List;
 /**
  * @program: yunmusic
  * @ClassName: VRankInfo
- * @description: TODO
+ * @description: 排行榜页面 只有八首歌的那种
  * @author: ccq
  * @create: 2019-09-21 10:43
  **/
+
 @Data
 public class VRankInfo {
 

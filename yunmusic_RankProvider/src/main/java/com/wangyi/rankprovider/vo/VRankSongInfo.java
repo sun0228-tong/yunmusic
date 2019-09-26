@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @program: yunmusic
  * @ClassName: VRankSongInfo
- * @description: TODO
+ * @description: 排行榜页面歌曲 八首
  * @author: ccq
  * @create: 2019-09-21 10:46
  **/
