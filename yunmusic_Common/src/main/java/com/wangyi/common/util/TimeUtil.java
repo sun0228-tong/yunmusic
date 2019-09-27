@@ -27,4 +27,13 @@ public class TimeUtil {
         SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
         return sm.format(new Date());
     }
+
+    //获取指定时间
+    public static Date getTime(int seconds) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND,seconds);
+        return calendar.getTime();
+    }
+
+
 }

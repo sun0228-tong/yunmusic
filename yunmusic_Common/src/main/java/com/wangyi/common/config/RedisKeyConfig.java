@@ -23,4 +23,12 @@ public class RedisKeyConfig {
     //1分钟的限制 后面加上手机号   次数限制为 1次
     public static final String SMS_MIN = "yunmusicMINS";
 
+    //登陆相关的信息
+    //user:手机号:设备类型 值为 令牌对象
+    public static final String USER_TOKEN = "user";
+    //令牌(token)值  值为 用户信息的 json对象
+    public static final String TOKEN_USER = "usertoken";
+    //记录被挤掉的信息 令牌(token)值 值为 新登陆的信息
+    public static final String LOSE_TOKEN = "losetoken";
+
 }
