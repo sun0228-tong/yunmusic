@@ -100,7 +100,7 @@ public class RedissonUtil {
 
     //获取String 剩余有效期
     public static int getTTL(String key) {
-        return (int) redisson.getBucket(key).remainTimeToLive();
+        return (int) redisson.getBucket(key).remainTimeToLive()/1000;
     }
 
 
