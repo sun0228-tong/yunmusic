@@ -23,7 +23,7 @@ public class TimeUtil {
     }
 
     // 获得固定格式的当前时间字符串
-    private static String getTime() {
+    public static String getTime() {
         SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
         return sm.format(new Date());
     }
@@ -35,5 +35,8 @@ public class TimeUtil {
         return calendar.getTime();
     }
 
-
+    //获取当前秒数(单位：毫秒)
+    public static long getCurrentTime() {
+        return System.currentTimeMillis()/1000;
+    }
 }

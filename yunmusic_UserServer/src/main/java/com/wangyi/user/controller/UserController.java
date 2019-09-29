@@ -1,6 +1,7 @@
 package com.wangyi.user.controller;
 
 import com.wangyi.common.vo.R;
+import com.wangyi.dto.LoginDto;
 import com.wangyi.dto.UserDto;
 import com.wangyi.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,10 @@ public class UserController {
     @PostMapping("server/user/save.do")
     public R save(@RequestBody UserDto userDto) {
         return userService.save(userDto);
+    }
+
+    @PostMapping("server/user/changePass")
+    public R changePass(@RequestBody LoginDto loginDto) {
+        return userService.changePass(loginDto);
     }
 }

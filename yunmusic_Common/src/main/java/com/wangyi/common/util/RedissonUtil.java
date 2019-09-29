@@ -5,9 +5,7 @@ import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedissonUtil {
     private static String ip = "39.105.189.141";
-    private static int port = 6379;
+    private static int port = 6380;
     private static RedissonClient redisson;
 
     static {
@@ -101,6 +99,16 @@ public class RedissonUtil {
     //获取String 剩余有效期
     public static int getTTL(String key) {
         return (int) redisson.getBucket(key).remainTimeToLive()/1000;
+    }
+
+    //获取指定类型key的所有内容
+    public static List<String> getKeys(String key) {
+        Iterator<String> iterator = redisson.getKeys().getKeysByPattern(key + "*").iterator();
+        List<String> keys = new ArrayList<>();
+        while (iterator.hasNext()) {
+            keys.add(iterator.next());
+        }
+        return keys;
     }
 
 

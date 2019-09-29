@@ -1,6 +1,7 @@
 package com.wangyi.userapi.service;
 
 import com.wangyi.common.vo.R;
+import com.wangyi.dto.LoginDto;
 import com.wangyi.dto.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,5 +20,8 @@ public interface UserService {
 
     @PostMapping("server/user/save.do")
     R save(@RequestBody UserDto userDto);
+
+    @PostMapping("server/user/changePass")
+    R changePass(@RequestBody LoginDto loginDto);
 
 }

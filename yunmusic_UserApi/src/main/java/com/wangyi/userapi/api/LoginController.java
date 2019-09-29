@@ -32,4 +32,23 @@ public class LoginController {
     public R logout(@RequestParam String token) {
         return loginService.logout(token);
     }
+
+    @PostMapping("api/login/findPass.do")
+    @ApiOperation(value = "找回密码方法",notes = "找回密码方法")
+    //调用接口步骤：
+    /*
+     1、校验手机号是否存在、冻结
+     2、发送短信
+     3、校验短信验证码
+     4、重置密码
+      */
+    public R findPass(@RequestBody LoginDto loginDto) {
+        return loginService.findPass(loginDto);
+    }
+
+    @GetMapping("api/login/checkFreeze.do")
+    @ApiOperation(value = "判断用户是否被冻结",notes = "判断用户是否被冻结")
+    public R checkFreeze(@RequestParam String phone) {
+        return loginService.checkFreeze(phone);
+    }
 }

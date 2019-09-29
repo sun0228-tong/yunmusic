@@ -31,4 +31,10 @@ public class RedisKeyConfig {
     //记录被挤掉的信息 令牌(token)值 值为 新登陆的信息
     public static final String LOSE_TOKEN = "losetoken";
 
+    //登录失败 冻结相关key
+    //user:freeze:手机号 值为日期  有效期 30分钟
+    public static final String FREEZE_USER = "userfreeze";
+    //user:fall:手机号:当前时间 值为日期 有效期 15分钟
+    public static final String FALL_USER = "userfall";
+
 }

@@ -1,7 +1,10 @@
 package com.wangyi.user.service.impl;
 
+import com.wangyi.common.config.RedisKeyConfig;
 import com.wangyi.common.util.RUtil;
+import com.wangyi.common.util.RedissonUtil;
 import com.wangyi.common.vo.R;
+import com.wangyi.dto.LoginDto;
 import com.wangyi.dto.UserDto;
 import com.wangyi.entity.User;
 import com.wangyi.user.dao.UserDao;
@@ -55,5 +58,17 @@ public class UserServiceImpl implements UserService {
     public R checkEmail(String email) {
         User user=userDao.selectByName(email);
         return RUtil.setR(user == null,"校验邮箱");
+    }
+
+    @Override
+    public R changePass(LoginDto loginDto) {
+        boolean ret = userDao.updatePass(loginDto) > 0;
+        if (ret) {
+            //密码修改成功 清空相关的各种Key
+            String token = RedissonUtil.getStr(RedisKeyConfig.USER_TOKEN + loginDto.getPhone() + loginDto.getFacility());
+            RedissonUtil.delKey(RedisKeyConfig.TOKEN_USER + token);
+            RedissonUtil.delKey(RedisKeyConfig.USER_TOKEN + loginDto.getPhone() + loginDto.getFacility());
+        }
+        return RUtil.setR(ret,"密码修改");
     }
 }

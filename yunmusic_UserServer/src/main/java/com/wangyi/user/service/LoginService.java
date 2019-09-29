@@ -11,4 +11,8 @@ public interface LoginService {
     R checkLogin(String token);
     //注销
     R logout(String token);
+    //找回密码
+    R findPass(LoginDto loginDto);
+    //校验账号是否被冻结
+    R checkFreeze(String phone);
 }
