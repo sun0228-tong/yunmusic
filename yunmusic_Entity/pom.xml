@@ -8,6 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
 
     <artifactId>yunmusic_Entity</artifactId>
 
@@ -18,15 +19,5 @@
             <version>3.1.2</version>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework-boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <classifier>exe</classifier>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
 </project>

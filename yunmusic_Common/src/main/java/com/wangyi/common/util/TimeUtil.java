@@ -2,6 +2,9 @@ package com.wangyi.common.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -35,8 +38,21 @@ public class TimeUtil {
         return calendar.getTime();
     }
 
-    //获取当前秒数(单位：毫秒)
+    //获取当前秒数(单位：秒)
     public static long getCurrentTime() {
         return System.currentTimeMillis()/1000;
     }
+
+    //比较相差的天数 以24小时为基准
+    public static int getDaysByHours(Date time) {
+        return (int) (System.currentTimeMillis() - time.getTime())/(1000*60*60*24);
+    }
+
+    //比较相差的天数 以日期天数为基准
+    public static int getDaysByDay(Date time) {
+        LocalDate localDate=time.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return (int) ChronoUnit.DAYS.between(localDate,LocalDate.now());
+    }
+
+
 }
